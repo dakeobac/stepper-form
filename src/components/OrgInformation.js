@@ -12,18 +12,18 @@ const OrgInformation = () => {
         component={CheckboxWithLabel}
         type="checkbox"
         name="cms"
+        value="cms"
         Label={{ label: "I need a blog" }}
-      >
-      </Field>
+      />
       <br/>
       <Field
         fullWidth
         component={CheckboxWithLabel} 
         type="checkbox"
         name="shop"
+        value="shop"
         Label={{ label: "I need an online shop" }}
-      >
-      </Field>
+      />
     </Box>
   );
 };
