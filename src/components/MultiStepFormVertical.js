@@ -70,6 +70,21 @@ const VerticalStepper = (props) => {
       .join("&");
   };
 
+  const onSubmit = (values) => {
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ "form-name": "contact", ...values }),
+    })
+      .then(() => {
+        handleReset();
+      })
+      .catch(() => {
+        console.log("error while submitting the form")
+      });
+    
+  };
+
   const initialValues = steps.reduce(
     (values, { initialValues }) => ({
       ...values,
@@ -82,22 +97,7 @@ const VerticalStepper = (props) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={
-      (values, actions) => {
-        fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: encode({ "form-name": "contact", ...values })
-        })
-        .then(() => {
-          actions.resetForm()
-          handleReset()
-        })
-        .catch(() => {
-          alert('Error');
-        })
-        .finally(() => actions.setSubmitting(false))
-      }}
+      onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
       {({ isSubmitting, touched, values }) => (
