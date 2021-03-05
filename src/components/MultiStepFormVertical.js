@@ -91,8 +91,8 @@ const VerticalStepper = (props) => {
   const validationSchema = activeStep.validationSchema;
 
   return (
-    <form name="contact-form" method="POST" data-netlify="true" action="/">
-      <input type="hidden" name="contact-form" value="contact-form" />
+    <form name="contact" method="POST" data-netlify="true" action="/" netlify>
+      <input type="hidden" name="contact" value="contact" />
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}

@@ -14,7 +14,9 @@ const ContactInformation = (props) => {
         name="firstName"
         label="First Name"
         component={TextField}
-      />
+      >
+        <input type="text" name="firstName" />
+      </Field>
       <Field
         fullWidth
         margin="normal"
@@ -23,7 +25,9 @@ const ContactInformation = (props) => {
         name="lastName"
         label="Last Name"
         component={TextField}
-      />
+      >
+        <input type="text" name="lastName" />
+      </Field>
     </section>
   );
 };
