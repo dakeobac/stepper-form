@@ -15,15 +15,6 @@ const OrgInformation = () => {
         value="cms"
         Label={{ label: "I need a blog" }}
       />
-      <br/>
-      <Field
-        fullWidth
-        component={CheckboxWithLabel} 
-        type="checkbox"
-        name="shop"
-        value="shop"
-        Label={{ label: "I need an online shop" }}
-      />
     </Box>
   );
 };
