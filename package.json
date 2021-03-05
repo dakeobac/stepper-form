@@ -1,0 +1,24 @@
+{
+  "name": "gatsby-theme",
+  "version": "4.0.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "^4.11.2",
+    "formik": "^2.2.6",
+    "formik-material-ui": "^3.0.1",
+    "gatsby": "latest",
+    "gatsby-theme-material-ui": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-helmet": "latest",
+    "react-swipeable-views": "^0.13.9",
+    "yup": "^0.32.9"
+  },
+  "scripts": {
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+  }
+}
