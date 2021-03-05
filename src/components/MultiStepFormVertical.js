@@ -45,7 +45,7 @@ function getStepContent(step) {
   }
 }
 
-const VerticalStepper = (props) => {
+const VerticalStepper = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
@@ -100,7 +100,7 @@ const VerticalStepper = (props) => {
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: encode({ "form-name": "contact-demo", ...values }),
+          body: encode({ "form-name": "contact", ...values }),
         })
           .then(() => {
             resetForm();

@@ -38,7 +38,6 @@ const ContactInformation = (props) => {
         label="Your email address"
         component={TextField}
       >
-        <input type="email" name="email" />
       </Field>
       <Field
         margin="normal"
@@ -51,7 +50,6 @@ const ContactInformation = (props) => {
         name="message"
         variant="outlined"
       >
-        <input type="text" name="message" />
       </Field>
     </>
   );
