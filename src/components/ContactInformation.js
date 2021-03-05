@@ -14,9 +14,8 @@ const ContactInformation = (props) => {
         name="firstName"
         label="First Name"
         component={TextField}
-      >
-        <input type="text" name="firstName" />
-      </Field>
+      />
+
       <Field
         fullWidth
         margin="normal"
@@ -25,9 +24,7 @@ const ContactInformation = (props) => {
         name="lastName"
         label="Last Name"
         component={TextField}
-      >
-        <input type="text" name="lastName" />
-      </Field>
+      />
 
       <Field
         fullWidth
@@ -37,8 +34,7 @@ const ContactInformation = (props) => {
         name="email"
         label="Your email address"
         component={TextField}
-      >
-      </Field>
+      />
       <Field
         margin="normal"
         fullWidth
@@ -49,8 +45,7 @@ const ContactInformation = (props) => {
         label="Your message"
         name="message"
         variant="outlined"
-      >
-      </Field>
+      />
     </>
   );
 };
@@ -60,12 +55,12 @@ ContactInformation.initialValues = {
   firstName: "",
   lastName: "",
   email: "",
-  message: ""
+  message: "",
 };
 ContactInformation.validationSchema = Yup.object().shape({
   firstName: Yup.string().required("Please enter your first name"),
   lastName: Yup.string().required("Please enter your last name"),
-  email: Yup.string().required("Please enter your email address")
+  email: Yup.string().required("Please enter your email address"),
 });
 
 export default ContactInformation;
