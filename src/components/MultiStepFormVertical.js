@@ -143,7 +143,6 @@ const VerticalStepper = (props) => {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={onSubmit}
                     className={classes.button}
                     disabled={isSubmitting}
                     type="submit"
