@@ -49,9 +49,6 @@ const VerticalStepper = (props) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-  const isLastStep = () => {
-    return activeStep === steps.length - 1;
-  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -66,19 +63,19 @@ const VerticalStepper = (props) => {
   };
 
   const onSubmit = (values) => {
-    // const { setSubmitting } = formikBag;
-
-    // if (!isLastStep()) {
-    //   setSubmitting(false);
-    //   handleNext();
-    //   return;
-    // }
-
-    console.log(values);
-
-    // setTimeout(() => {
-    //   setSubmitting(false);
-    // }, 1000);
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ "form-name": "contact", ...values }),
+    })
+      .then(() => {
+        alert("Success");
+        handleReset();
+      })
+      .catch(() => {
+        alert("Error");
+      });
+    //.finally(() => actions.setSubmitting(false));
   };
 
   const initialValues = steps.reduce(
@@ -91,77 +88,70 @@ const VerticalStepper = (props) => {
   const validationSchema = activeStep.validationSchema;
 
   return (
-    <form name="contact" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
-      <input type="hidden" name="contact-form" value="contact" />
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        {({ isSubmitting, touched, values }) => (
-          <>
-            <Form>
-              <div className={classes.root}>
-                <Stepper activeStep={activeStep} orientation="vertical">
-                  {steps.map((label, index) => (
-                    <Step key={label}>
-                      <StepLabel>{label}</StepLabel>
-                      <StepContent>
-                        <Typography>{getStepContent(index)}</Typography>
-                        <div className={classes.actionsContainer}>
-                          <div>
-                            <Button
-                              disabled={activeStep === 0 || isSubmitting}
-                              onClick={handleBack}
-                              className={classes.button}
-                            >
-                              Back
-                            </Button>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              onClick={handleNext}
-                              className={classes.button}
-                            >
-                              {activeStep === steps.length - 1
-                                ? "Finish"
-                                : "Next"}
-                            </Button>
-                          </div>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ isSubmitting, touched, values }) => (
+        <>
+          <Form name="contact" data-netlify={true}>
+            <div className={classes.root}>
+              <Stepper activeStep={activeStep} orientation="vertical">
+                {steps.map((label, index) => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                    <StepContent>
+                      <Typography>{getStepContent(index)}</Typography>
+                      <div className={classes.actionsContainer}>
+                        <div>
+                          <Button
+                            disabled={activeStep === 0 || isSubmitting}
+                            onClick={handleBack}
+                            className={classes.button}
+                          >
+                            Back
+                          </Button>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleNext}
+                            className={classes.button}
+                          >
+                            {activeStep === steps.length - 1
+                              ? "Finish"
+                              : "Next"}
+                          </Button>
                         </div>
-                      </StepContent>
-                    </Step>
-                  ))}
-                </Stepper>
-                {activeStep === steps.length && (
-                  <Paper
-                    square
-                    elevation={0}
-                    className={classes.resetContainer}
+                      </div>
+                    </StepContent>
+                  </Step>
+                ))}
+              </Stepper>
+              {activeStep === steps.length && (
+                <Paper square elevation={0} className={classes.resetContainer}>
+                  <Typography>
+                    All steps completed - click submit to send
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={onSubmit}
+                    className={classes.button}
+                    disabled={isSubmitting}
+                    type="submit"
                   >
-                    <Typography>
-                      All steps completed - click submit to send
-                    </Typography>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={onSubmit}
-                      className={classes.button}
-                      disabled={isSubmitting}
-                      type="submit"
-                    >
-                      Submit
-                    </Button>
-                  </Paper>
-                )}
-              </div>
-            </Form>
-            <pre>{JSON.stringify(values, null, 2)}</pre>
-            <pre>{JSON.stringify(touched, null, 2)}</pre>
-          </>
-        )}
-      </Formik>
-    </form>
+                    Submit
+                  </Button>
+                </Paper>
+              )}
+            </div>
+          </Form>
+          <pre>{JSON.stringify(values, null, 2)}</pre>
+          <pre>{JSON.stringify(touched, null, 2)}</pre>
+        </>
+      )}
+    </Formik>
   );
 };
 
