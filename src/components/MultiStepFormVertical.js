@@ -39,7 +39,7 @@ function getStepContent(step) {
     case 1:
       return <OrgInformation />;
     case 2:
-      return `last step`;
+      return "last step";
     default:
       return "Unknown step";
   }
@@ -58,10 +58,6 @@ const VerticalStepper = (props) => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
-
   const encode = (data) => {
     return Object.keys(data)
       .map(
@@ -70,19 +66,23 @@ const VerticalStepper = (props) => {
       .join("&");
   };
 
+  const calculateEstimate = (values) => {
+    let estimatedPrice = 0;
+    if (values.firstName === "Eric") {
+      estimatedPrice = estimatedPrice + 1337;
+      return <Typography component={'div'} >{estimatedPrice} €</Typography>;
+    }
+    console.log(values);
+  };
+
   const onSubmit = (values) => {
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({ "form-name": "contact", ...values }),
-    })
-      .then(() => {
-        handleReset();
-      })
-      .catch(() => {
-        console.log("error while submitting the form")
-      });
-    
+    }).catch(() => {
+      console.log("error while submitting the form");
+    });
   };
 
   const initialValues = steps.reduce(
@@ -100,7 +100,7 @@ const VerticalStepper = (props) => {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {({ isSubmitting, touched, values }) => (
+      {({ isSubmitting, touched, values, resetForm }) => (
         <>
           <Form name="contact" data-netlify={true}>
             <div className={classes.root}>
@@ -109,7 +109,7 @@ const VerticalStepper = (props) => {
                   <Step key={label}>
                     <StepLabel>{label}</StepLabel>
                     <StepContent>
-                      <Typography>{getStepContent(index)}</Typography>
+                      <Typography component={'div'} >{getStepContent(index)}</Typography>
                       <div className={classes.actionsContainer}>
                         <div>
                           <Button
@@ -126,7 +126,7 @@ const VerticalStepper = (props) => {
                             className={classes.button}
                           >
                             {activeStep === steps.length - 1
-                              ? "Finish"
+                              ? "Calculate estimate"
                               : "Next"}
                           </Button>
                         </div>
@@ -137,9 +137,26 @@ const VerticalStepper = (props) => {
               </Stepper>
               {activeStep === steps.length && (
                 <Paper square elevation={0} className={classes.resetContainer}>
-                  <Typography>
+                  <Typography component={'div'} >
+                    <pre>{JSON.stringify(values, null, 2)}</pre>
+                    <pre>{JSON.stringify(touched, null, 2)}</pre>
+                    <br />
+
+                    {calculateEstimate(values)}
+                    <br />
+                  </Typography>
+                  <Typography component={'div'} >
                     All steps completed - click submit to send
                   </Typography>
+                  <Button
+                    className={classes.button}
+                    onClick={() => {
+                      setActiveStep(0);
+                      resetForm();
+                    }}
+                  >
+                    Start over
+                  </Button>
                   <Button
                     variant="contained"
                     color="primary"
@@ -153,8 +170,6 @@ const VerticalStepper = (props) => {
               )}
             </div>
           </Form>
-          <pre>{JSON.stringify(values, null, 2)}</pre>
-          <pre>{JSON.stringify(touched, null, 2)}</pre>
         </>
       )}
     </Formik>

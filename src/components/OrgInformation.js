@@ -1,32 +1,21 @@
 import React from "react";
 import { Field } from "formik";
-import { TextField } from "formik-material-ui";
-import { Grid, Typography } from "@material-ui/core";
+import { CheckboxWithLabel } from "formik-material-ui";
 import * as Yup from "yup";
 
 const OrgInformation = (props) => {
   return (
-    <section>
+    <>
       <Field
         fullWidth
-        margin="normal"
-        variant="outlined"
-        color="secondary"
-        name="businessName"
-        label="Business Name"
-        component={TextField}
-      />
-
-      <Field
-        fullWidth
-        margin="normal"
-        variant="outlined"
-        color="secondary"
-        name="streetAddress"
-        label="Street Address"
-        component={TextField}
-      />
-    </section>
+        component={CheckboxWithLabel}
+        type="checkbox"
+        name="cms"
+        Label={{ label: "I need a cms" }}
+      >
+        <input type="checkbox" name="cms" />
+      </Field>
+    </>
   );
 };
 

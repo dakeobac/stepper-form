@@ -4,7 +4,7 @@ import { Link } from 'gatsby-theme-material-ui';
 
 export default function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography component={'div'}  variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
