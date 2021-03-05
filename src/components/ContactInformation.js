@@ -48,7 +48,7 @@ const ContactInformation = (props) => {
         rows={4}
         component={TextField}
         label="Your message"
-        name="outlined"
+        name="message"
         variant="outlined"
       >
         <input type="text" name="message" />

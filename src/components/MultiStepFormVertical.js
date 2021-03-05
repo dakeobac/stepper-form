@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -47,7 +47,7 @@ function getStepContent(step) {
 
 const VerticalStepper = (props) => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
 
   const handleNext = () => {
@@ -70,19 +70,18 @@ const VerticalStepper = (props) => {
     let estimatedPrice = 0;
     if (values.firstName === "Eric") {
       estimatedPrice = estimatedPrice + 1337;
-      return <Typography component={'div'} >{estimatedPrice} €</Typography>;
     }
-    console.log(values);
-  };
-
-  const onSubmit = (values) => {
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": "contact", ...values }),
-    }).catch(() => {
-      console.log("error while submitting the form");
-    });
+    if (values.cms) {
+      estimatedPrice = estimatedPrice + 1337;
+    }
+        if (values.shop) {
+      estimatedPrice = estimatedPrice + 1337;
+    }
+    return (
+      <Typography component={"h4"} variant="h4">
+        {estimatedPrice} €
+      </Typography>
+    );
   };
 
   const initialValues = steps.reduce(
@@ -97,7 +96,23 @@ const VerticalStepper = (props) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encode({ "form-name": "contact-demo", ...values }),
+        })
+          .then(() => {
+            resetForm();
+          })
+          .catch(() => {
+            alert("Oops, something went wrong submitting the form...");
+          })
+          .finally(() => {
+            setSubmitting(false);
+            setActiveStep(0);
+          });
+      }}
       validationSchema={validationSchema}
     >
       {({ isSubmitting, touched, values, resetForm }) => (
@@ -109,7 +124,9 @@ const VerticalStepper = (props) => {
                   <Step key={label}>
                     <StepLabel>{label}</StepLabel>
                     <StepContent>
-                      <Typography component={'div'} >{getStepContent(index)}</Typography>
+                      <Typography component={"div"}>
+                        {getStepContent(index)}
+                      </Typography>
                       <div className={classes.actionsContainer}>
                         <div>
                           <Button
@@ -137,17 +154,19 @@ const VerticalStepper = (props) => {
               </Stepper>
               {activeStep === steps.length && (
                 <Paper square elevation={0} className={classes.resetContainer}>
-                  <Typography component={'div'} >
                     <pre>{JSON.stringify(values, null, 2)}</pre>
                     <pre>{JSON.stringify(touched, null, 2)}</pre>
-                    <br />
-
                     {calculateEstimate(values)}
-                    <br />
+                  <Typography component={"p"}>
+                    Click submit to send a request
                   </Typography>
-                  <Typography component={'div'} >
-                    All steps completed - click submit to send
-                  </Typography>
+                  <Button
+                    disabled={activeStep === 0 || isSubmitting}
+                    onClick={handleBack}
+                    className={classes.button}
+                  >
+                    Back
+                  </Button>
                   <Button
                     className={classes.button}
                     onClick={() => {
