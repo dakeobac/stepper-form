@@ -1,13 +1,18 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Avatar, Paper, Link, Grid, Typography, Box } from "@material-ui/core";
+import { Avatar, Paper, Link, Grid, Typography } from "@material-ui/core";
 import WebIcon from "@material-ui/icons/Web";
 import { makeStyles } from "@material-ui/core/styles";
 import MultiStepFormVertical from "../components/MultiStepFormVertical";
 
 function Copyright() {
   return (
-    <Typography component={'p'}  variant="body2" color="textSecondary" align="center">
+    <Typography
+      component={"p"}
+      variant="body2"
+      color="textSecondary"
+      align="center"
+    >
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
@@ -36,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
-    alignItems: "flext-start",
+    alignItems: "flex-start",
   },
   avatar: {
     margin: theme.spacing(1),
@@ -60,14 +65,12 @@ export default function SignInSide() {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Box alignItems="center" display="flex" flexDirection="column">
-            <Avatar className={classes.avatar}>
-              <WebIcon />
-            </Avatar>
-            <Typography component={'h1'} variant="h5">
-              Get an estimate for your website
-            </Typography>
-          </Box>
+          <Avatar className={classes.avatar}>
+            <WebIcon />
+          </Avatar>
+          <Typography component={"h1"} variant="h5">
+            Get an estimate for your website
+          </Typography>
           <MultiStepFormVertical />
           <Copyright />
         </div>
