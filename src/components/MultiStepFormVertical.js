@@ -74,7 +74,7 @@ const VerticalStepper = () => {
     if (values.cms) {
       estimatedPrice = estimatedPrice + 1337;
     }
-        if (values.shop) {
+    if (values.shop) {
       estimatedPrice = estimatedPrice + 1337;
     }
     return (
@@ -97,7 +97,7 @@ const VerticalStepper = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        console.log(values)
+        console.log(values);
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -119,6 +119,9 @@ const VerticalStepper = () => {
       {({ isSubmitting, touched, values, resetForm }) => (
         <>
           <Form name="contact" data-netlify={true}>
+            <input type="hidden" name="contact" value="contact" />
+            <input type="hidden" name="features" />
+            <input type="hidden" name="bot-field" />
             <div className={classes.root}>
               <Stepper activeStep={activeStep} orientation="vertical">
                 {steps.map((label, index) => (
@@ -155,9 +158,9 @@ const VerticalStepper = () => {
               </Stepper>
               {activeStep === steps.length && (
                 <Paper square elevation={0} className={classes.resetContainer}>
-                    <pre>{JSON.stringify(values, null, 2)}</pre>
-                    <pre>{JSON.stringify(touched, null, 2)}</pre>
-                    {calculateEstimate(values)}
+                  <pre>{JSON.stringify(values, null, 2)}</pre>
+                  <pre>{JSON.stringify(touched, null, 2)}</pre>
+                  {calculateEstimate(values)}
                   <Typography component={"p"}>
                     Click submit to send a request
                   </Typography>
