@@ -12,9 +12,10 @@ const OrgInformation = () => {
         component={CheckboxWithLabel}
         type="checkbox"
         name="cms"
-        value="cms"
         Label={{ label: "I need a blog" }}
-      />
+      >
+        <input type="hidden" name="cms" />
+      </Field>
     </Box>
   );
 };
