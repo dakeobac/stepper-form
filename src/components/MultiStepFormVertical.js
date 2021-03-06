@@ -97,6 +97,7 @@ const VerticalStepper = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={(values, { setSubmitting, resetForm }) => {
+        console.log(values)
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
