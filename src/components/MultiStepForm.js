@@ -4,9 +4,9 @@ import { Button, Step, StepLabel, Stepper } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 
 import ContactInformation from './ContactInformation';
-import OrgInformation from './OrgInformation';
+import ProjectDetails from './ProjectDetails';
 
-const steps = [ContactInformation, OrgInformation];
+const steps = [ContactInformation, ProjectDetails];
 
 export default props => {
 	const [activeStep, setActiveStep] = useState(0);

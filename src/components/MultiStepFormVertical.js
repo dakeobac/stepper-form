@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { Form, Formik } from "formik";
 
 import ContactInformation from "./ContactInformation";
-import OrgInformation from "./OrgInformation";
+import ProjectDetails from "./ProjectDetails";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +37,7 @@ function getStepContent(step) {
     case 0:
       return <ContactInformation />;
     case 1:
-      return <OrgInformation />;
+      return <ProjectDetails />;
     case 2:
       return "last step";
     default:
