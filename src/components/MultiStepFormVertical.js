@@ -119,9 +119,7 @@ const VerticalStepper = () => {
       {({ isSubmitting, touched, values, resetForm }) => (
         <>
           <Form name="contact" data-netlify={true}>
-            <input type="hidden" name="contact" value="contact" />
             <input type="hidden" name="features" />
-            <input type="hidden" name="bot-field" />
             <div className={classes.root}>
               <Stepper activeStep={activeStep} orientation="vertical">
                 {steps.map((label, index) => (
